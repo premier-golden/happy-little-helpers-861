@@ -1317,16 +1317,15 @@
     }).format(value);
   }
 
-  // --- helper: converte "735,48 €" -> number (4596.72) ---
+  // --- helper: converts "$735.48" -> number (735.48) ---
   function parseBRL(text) {
     if (!text) return 0;
-    // remove tudo exceto dígitos e vírgula/ponto
-    // suporta formatos: "735,48 €" ou "4596.72"
+    // remove everything except digits, dot and minus sign
+    // supports formats like "$735.48" or "4596.72"
     const cleaned = String(text)
       .replace(/\s/g, "")
-      .replace(/[Rr]\$\s?/, "")
-      .replace(/\./g, "") // remove separador de milhar
-      .replace(/,/g, "."); // troca vírgula decimal para ponto
+      .replace(/\$/g, "")
+      .replace(/,/g, ""); // remove thousands separator
     const n = parseFloat(cleaned);
     return isNaN(n) ? 0 : n;
   }
