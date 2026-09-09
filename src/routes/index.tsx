@@ -4,15 +4,15 @@ import { useEffect } from "react";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "TikTok Rewards | Inicio" },
+      { title: "TikTok Rewards | Home" },
       {
         name: "description",
-        content: "Inicio del fluxo de recompensas e retiro de saldo TikTok Rewards.",
+        content: "Entry point for the TikTok Rewards balance withdrawal flow.",
       },
-      { property: "og:title", content: "TikTok Rewards | Inicio" },
+      { property: "og:title", content: "TikTok Rewards | Home" },
       {
         property: "og:description",
-        content: "Inicio del fluxo de recompensas e retiro de saldo TikTok Rewards.",
+        content: "Entry point for the TikTok Rewards balance withdrawal flow.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -26,7 +26,7 @@ function Index() {
     window.location.replace("/pressel/index.html");
   }, []);
 
-  // A rota inicial é apenas uma passagem para a pressel.
-  // Não renderizamos mensagens técnicas para evitar qualquer flash antes do redirecionamento.
+  // The initial route is just a pass-through to the pressel page.
+  // We don't render technical messages to avoid any flash before redirecting.
   return null;
 }
