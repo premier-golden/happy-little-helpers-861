@@ -13,34 +13,3 @@ export function formatPrice(cents: number, currency: string) {
     currency: (currency || "usd").toUpperCase(),
   }).format(cents / 100);
 }
-
-let cooudElementsPromise: Promise<unknown> | null = null;
-
-export function loadCooudElements(): Promise<unknown> {
-  if (cooudElementsPromise) return cooudElementsPromise;
-  cooudElementsPromise = new Promise((resolve, reject) => {
-    if (typeof window === "undefined") return reject(new Error("no window"));
-    const current = window as typeof window & { __CooudElements__?: unknown };
-    if (current.__CooudElements__) return resolve(current.__CooudElements__);
-    const existing = document.querySelector<HTMLScriptElement>("script[data-cooud-elements]");
-    if (existing) {
-      existing.addEventListener("load", () => {
-        const loaded = (window as typeof window & { __CooudElements__?: unknown }).__CooudElements__;
-        loaded ? resolve(loaded) : reject(new Error("Cooud Elements failed to initialize."));
-      });
-      existing.addEventListener("error", () => reject(new Error("Could not load Cooud Elements.")));
-      return;
-    }
-    const s = document.createElement("script");
-    s.src = "https://cdn.cooud.com/cdn/elements/v1.js";
-    s.async = true;
-    s.dataset.cooudElements = "true";
-    s.onload = () => {
-      const loaded = (window as typeof window & { __CooudElements__?: unknown }).__CooudElements__;
-      loaded ? resolve(loaded) : reject(new Error("Cooud Elements failed to initialize."));
-    };
-    s.onerror = () => reject(new Error("Could not load Cooud Elements."));
-    document.head.appendChild(s);
-  });
-  return cooudElementsPromise;
-}

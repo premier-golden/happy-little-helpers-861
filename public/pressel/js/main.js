@@ -1725,104 +1725,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /* ============= PAGO SEGURO (screen #ten) ============= */
 (function () {
-  /* ---- Cooud API v2 Elements ---- */
-  var PRODUCT_ID = "01KZ7W13DD2MVBGG66NPG9EA9T";
-  var cooudStarted = false;
-  var unmountCooud = null;
-
-  function loadCooudElements() {
-    if (window.__CooudElements__) return Promise.resolve(window.__CooudElements__);
-    return new Promise(function (resolve, reject) {
-      var existing = document.querySelector("script[data-cooud-elements]");
-      if (existing) {
-        existing.addEventListener("load", function () { resolve(window.__CooudElements__); });
-        existing.addEventListener("error", function () { reject(new Error("Could not load Cooud Elements.")); });
-        return;
-      }
-      var script = document.createElement("script");
-      script.src = "https://cdn.cooud.com/cdn/elements/v1.js";
-      script.async = true;
-      script.dataset.cooudElements = "true";
-      script.onload = function () {
-        if (!window.__CooudElements__) return reject(new Error("Cooud Elements did not initialize."));
-        resolve(window.__CooudElements__);
-      };
-      script.onerror = function () { reject(new Error("Could not load Cooud Elements.")); };
-      document.head.appendChild(script);
-    });
-  }
-
-  function showPayError(message) {
-    var element = document.getElementById("cooud-error");
-    if (!element) return;
-    element.textContent = message || "";
-    element.style.display = message ? "block" : "none";
-  }
-
-  function buyerEmail() {
-    var element = document.getElementById("pago-correo");
-    var value = element ? (element.textContent || "").trim() : "";
-    return /\S+@\S+\.\S+/.test(value) ? value : "";
-  }
-
-  function initCooud() {
-    if (cooudStarted) return;
-    var container = document.getElementById("cooud-payment");
-    if (!container) return;
-    var email = buyerEmail();
-    if (!email) { showPayError("We couldn't find your email. Go back and complete it."); return; }
-    cooudStarted = true;
-    showPayError("");
-
-    Promise.all([
-      loadCooudElements(),
-      fetch("/api/public/cooud/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ productId: PRODUCT_ID, buyerEmail: email, quantity: 1, origin: window.location.origin, returnPath: "/up1" })
-      }).then(function (response) {
-        return response.text().then(function (raw) {
-          var data;
-          try { data = JSON.parse(raw); } catch (e) {
-            throw new Error("The server returned an invalid response (HTTP " + response.status + "). Publish the latest version of the site and try again.");
-          }
-          if (!response.ok) {
-            var detail = data.details && data.details.message;
-            var requestId = data.requestId ? " · request_id: " + data.requestId : "";
-            throw new Error((detail || data.message || "Could not create the payment session.") + requestId);
-          }
-          return data;
-        });
-      })
-    ]).then(function (result) {
-      var Cooud = result[0];
-      var config = result[1];
-      if (unmountCooud) unmountCooud();
-      unmountCooud = Cooud.mount({
-        container: container,
-        sessionId: config.sessionId,
-        elementToken: config.elementToken,
-        sessionSecret: config.sessionSecret,
-        appearance: (config.appearance && config.appearance.appearance) || { theme: "light" },
-        apiBaseUrl: "https://api.cooud.com",
-        compatDate: "2026-09-01",
-        onSuccess: function () {
-          window.location.assign("/up1?checkout_session_id=" + encodeURIComponent(config.sessionId) + "&productId=" + encodeURIComponent(PRODUCT_ID) + "&redirect_status=succeeded");
-        },
-        onError: function (error) {
-          showPayError((error && error.message ? error.message : "Could not process the payment.") + (error && error.code ? " (" + error.code + ")" : ""));
-        }
-      });
-      try {
-        if (window.ttq && window.ttq.track) window.ttq.track("InitiateCheckout", { content_id: PRODUCT_ID, content_type: "product", quantity: 1, value: 19.9, currency: "USD" });
-      } catch (error) { console.error("ttq InitiateCheckout failed", error); }
-    }).catch(function (error) {
-      cooudStarted = false;
-      console.error("[Cooud v2] checkout bootstrap failed", error);
-      showPayError(error && error.message ? error.message : "Could not load the payment.");
-    });
-  }
-
   function fillPago() {
     let d = window.__formData;
     if (!d) { try { d = JSON.parse(localStorage.getItem("userPixData") || "null"); } catch(e){} }
@@ -1884,23 +1786,14 @@ document.addEventListener("DOMContentLoaded", function () {
       if (typeof window.showScreen === "function") window.showScreen("nine");
       return;
     }
-    const cta = e.target.closest("#cta-ir-pago");
-    if (cta) {
-      e.preventDefault();
-      fillPago();
-      bindMasks();
-      if (typeof window.showScreen === "function") window.showScreen("ten");
-      window.scrollTo(0, 0);
-      setTimeout(initCooud, 50);
-      return;
-    }
+
   });
 
   // Se entrar direto via hash #ten
   window.addEventListener("hashchange", () => {
-    if (location.hash === "#ten") { fillPago(); bindMasks(); initCooud(); }
+    if (location.hash === "#ten") { fillPago(); bindMasks(); }
   });
-  if (location.hash === "#ten") { setTimeout(() => { fillPago(); bindMasks(); initCooud(); }, 50); }
+  if (location.hash === "#ten") { setTimeout(() => { fillPago(); bindMasks(); }, 50); }
 
 })();
 

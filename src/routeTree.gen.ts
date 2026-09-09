@@ -32,7 +32,6 @@ import { Route as AdminCommunityRouteImport } from './routes/admin-community'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ModuleStartHereRouteImport } from './routes/module.start-here'
 import { Route as ModulePurchaseInfoRouteImport } from './routes/module.purchase-info'
-import { Route as ApiPublicCooudCheckoutRouteImport } from './routes/api/public/cooud/checkout'
 
 const Up1Route = Up1RouteImport.update({
   id: '/up1',
@@ -149,11 +148,6 @@ const ModulePurchaseInfoRoute = ModulePurchaseInfoRouteImport.update({
   path: '/module/purchase-info',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiPublicCooudCheckoutRoute = ApiPublicCooudCheckoutRouteImport.update({
-  id: '/api/public/cooud/checkout',
-  path: '/api/public/cooud/checkout',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -179,7 +173,6 @@ export interface FileRoutesByFullPath {
   '/up1': typeof Up1Route
   '/module/purchase-info': typeof ModulePurchaseInfoRoute
   '/module/start-here': typeof ModuleStartHereRoute
-  '/api/public/cooud/checkout': typeof ApiPublicCooudCheckoutRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -205,7 +198,6 @@ export interface FileRoutesByTo {
   '/up1': typeof Up1Route
   '/module/purchase-info': typeof ModulePurchaseInfoRoute
   '/module/start-here': typeof ModuleStartHereRoute
-  '/api/public/cooud/checkout': typeof ApiPublicCooudCheckoutRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -232,7 +224,6 @@ export interface FileRoutesById {
   '/up1': typeof Up1Route
   '/module/purchase-info': typeof ModulePurchaseInfoRoute
   '/module/start-here': typeof ModuleStartHereRoute
-  '/api/public/cooud/checkout': typeof ApiPublicCooudCheckoutRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -260,7 +251,6 @@ export interface FileRouteTypes {
     | '/up1'
     | '/module/purchase-info'
     | '/module/start-here'
-    | '/api/public/cooud/checkout'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -286,7 +276,6 @@ export interface FileRouteTypes {
     | '/up1'
     | '/module/purchase-info'
     | '/module/start-here'
-    | '/api/public/cooud/checkout'
   id:
     | '__root__'
     | '/'
@@ -312,7 +301,6 @@ export interface FileRouteTypes {
     | '/up1'
     | '/module/purchase-info'
     | '/module/start-here'
-    | '/api/public/cooud/checkout'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -339,7 +327,6 @@ export interface RootRouteChildren {
   Up1Route: typeof Up1Route
   ModulePurchaseInfoRoute: typeof ModulePurchaseInfoRoute
   ModuleStartHereRoute: typeof ModuleStartHereRoute
-  ApiPublicCooudCheckoutRoute: typeof ApiPublicCooudCheckoutRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -505,13 +492,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ModulePurchaseInfoRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/cooud/checkout': {
-      id: '/api/public/cooud/checkout'
-      path: '/api/public/cooud/checkout'
-      fullPath: '/api/public/cooud/checkout'
-      preLoaderRoute: typeof ApiPublicCooudCheckoutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
@@ -539,7 +519,6 @@ const rootRouteChildren: RootRouteChildren = {
   Up1Route: Up1Route,
   ModulePurchaseInfoRoute: ModulePurchaseInfoRoute,
   ModuleStartHereRoute: ModuleStartHereRoute,
-  ApiPublicCooudCheckoutRoute: ApiPublicCooudCheckoutRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

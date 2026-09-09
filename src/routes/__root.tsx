@@ -95,8 +95,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
       { rel: "preconnect", href: "https://analytics.tiktok.com" },
-      { rel: "preconnect", href: "https://api.cooud.com" },
-      { rel: "preconnect", href: "https://cdn.cooud.com" },
     ],
     scripts: [{ children: TIKTOK_PIXEL_SNIPPET }],
   }),
