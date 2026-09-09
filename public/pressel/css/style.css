@@ -2989,3 +2989,28 @@ body.reward-complete {
 #two.screen.is-modal {
   touch-action: pan-y;
 }
+
+/* Keep the demo balance readable alongside the action on narrow screens. */
+#popup-um .container-saldo {
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+#popup-um .saldo-info {
+  flex: 1 0 max-content;
+}
+
+#popup-um .saldo-label,
+#popup-um .saldo-valor {
+  white-space: nowrap;
+}
+
+#popup-um .saldo-action {
+  flex: 0 0 auto;
+  margin-left: auto;
+}
+
+#popup-um .btn-sacar {
+  width: clamp(110px, 32vw, 140px);
+  max-width: 100%;
+}
