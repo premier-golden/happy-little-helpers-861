@@ -28,26 +28,26 @@ type ProductConfig = {
 
 const PRODUCTS: Record<string, ProductConfig> = {
   "01KZ7W13DD2MVBGG66NPG9EA9T": {
-    name: "Tasa de seguridad reembolsable",
+    name: "Refundable security fee",
     // Rótulo interno enviado à Cooud para identificar a oferta no painel.
-    cooudLabel: "[MAIN] Tasa de seguridad reembolsable — 19,90 €",
+    cooudLabel: "[MAIN] Refundable security fee — $19.90",
     offerId: "01KZQ9PPFFJ6SJ8MN0X86JE1XD",
     // Usado apenas como fallback de exibição até a Cooud responder com o valor real.
     amount: 1990,
-    currency: "EUR",
+    currency: "USD",
   },
 
   "43ca5d35-3492-4567-913d-dc2843ba6931": {
-    name: "Tasa reducida de liberación",
-    cooudLabel: "[BACK-REDIRECT] Tasa reducida de liberación — 12,44 €",
+    name: "Reduced release fee",
+    cooudLabel: "[BACK-REDIRECT] Reduced release fee — $12.44",
     amount: 1244,
-    currency: "EUR",
+    currency: "USD",
   },
   "65009b71-7660-44ef-ba87-24f29c7599a4": {
-    name: "Reintento de liberación",
-    cooudLabel: "[UP1] Reintento de liberación — 19,90 €",
+    name: "Release retry",
+    cooudLabel: "[UP1] Release retry — $19.90",
     amount: 1990,
-    currency: "EUR",
+    currency: "USD",
   },
 };
 

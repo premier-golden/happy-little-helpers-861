@@ -58,7 +58,7 @@ export function CooudCheckout({
 
   async function prepareCheckout() {
     if (!email.trim() || loading) {
-      if (!email.trim()) setError("Introduce tu email para recibir el acceso.");
+      if (!email.trim()) setError("Enter your email to receive access.");
       return;
     }
 
@@ -82,14 +82,14 @@ export function CooudCheckout({
         data = JSON.parse(raw) as CheckoutBootstrap;
       } catch {
         throw new Error(
-          `El servidor devolvió una respuesta no válida (HTTP ${response.status}). Publica la última versión del sitio e inténtalo de nuevo.`,
+          `The server returned an invalid response (HTTP ${response.status}). Publish the latest version of the site and try again.`,
         );
       }
-      if (!response.ok) throw new Error(errorMessage(data, "No se pudo crear la sesión de pago."));
+      if (!response.ok) throw new Error(errorMessage(data, "Could not create the payment session."));
 
       const cooud = (await loadCooudElements()) as CooudElements;
       const container = containerRef.current;
-      if (!container) throw new Error("No se encontró el contenedor de Cooud Elements.");
+      if (!container) throw new Error("Cooud Elements container not found.");
 
       unmountRef.current?.();
       unmountRef.current = cooud.mount({
@@ -109,13 +109,13 @@ export function CooudCheckout({
         },
         onError: (cooudError) => {
           setError(
-            `${cooudError.message ?? "No se pudo procesar el pago."}${cooudError.code ? ` (${cooudError.code})` : ""}`,
+            `${cooudError.message ?? "Payment could not be processed."}${cooudError.code ? ` (${cooudError.code})` : ""}`,
           );
         },
       });
       setConfig(data);
     } catch (caught) {
-      setError(caught instanceof Error ? caught.message : "No se pudo cargar el pago.");
+      setError(caught instanceof Error ? caught.message : "Could not load the payment form.");
     } finally {
       setLoading(false);
     }
@@ -135,7 +135,7 @@ export function CooudCheckout({
       {!config && (
         <>
           <label className="mb-1 block text-sm font-semibold text-neutral-700" htmlFor={`cooud-email-${productId}`}>
-            Tu email
+            Your email
           </label>
           <input
             id={`cooud-email-${productId}`}
@@ -145,7 +145,7 @@ export function CooudCheckout({
             required
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            placeholder="tu@email.com"
+            placeholder="you@email.com"
             className="mb-4 w-full rounded-xl border border-neutral-300 bg-white px-4 py-3 text-sm outline-none focus:border-rose-400 focus:ring-2 focus:ring-rose-200"
             disabled={loading}
           />
@@ -155,7 +155,7 @@ export function CooudCheckout({
             disabled={loading}
             className="mb-4 flex w-full items-center justify-center rounded-full bg-gradient-to-r from-rose-500 to-rose-600 py-4 font-bold text-white shadow-lg transition-all hover:from-rose-600 hover:to-rose-700 disabled:opacity-50"
           >
-            {loading ? "Preparando pago…" : "Continuar al pago"}
+            {loading ? "Preparing payment…" : "Continue to payment"}
           </button>
         </>
       )}
@@ -163,7 +163,7 @@ export function CooudCheckout({
       <div ref={containerRef} className={config ? "min-h-[180px]" : "hidden min-h-[180px]"} />
       {error && <p className="mt-3 text-sm font-medium text-rose-600" role="alert">{error}</p>}
       <p className="mt-4 text-center text-[11px] leading-snug text-neutral-400">
-        Pago seguro procesado por Cooud. Los datos de tu tarjeta nunca pasan por nuestros servidores.
+        Secure payment processed by Cooud. Your card details never pass through our servers.
       </p>
     </section>
   );

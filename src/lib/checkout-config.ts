@@ -8,9 +8,9 @@ export const BACK_REDIRECT_PRODUCT_ID = "43ca5d35-3492-4567-913d-dc2843ba6931";
 export const UP1_PRODUCT_ID = "65009b71-7660-44ef-ba87-24f29c7599a4";
 
 export function formatPrice(cents: number, currency: string) {
-  return new Intl.NumberFormat("es-ES", {
+  return new Intl.NumberFormat("en-US", {
     style: "currency",
-    currency: (currency || "eur").toUpperCase(),
+    currency: (currency || "usd").toUpperCase(),
   }).format(cents / 100);
 }
 
@@ -26,9 +26,9 @@ export function loadCooudElements(): Promise<unknown> {
     if (existing) {
       existing.addEventListener("load", () => {
         const loaded = (window as typeof window & { __CooudElements__?: unknown }).__CooudElements__;
-        loaded ? resolve(loaded) : reject(new Error("Cooud Elements no se inicializó."));
+        loaded ? resolve(loaded) : reject(new Error("Cooud Elements failed to initialize."));
       });
-      existing.addEventListener("error", () => reject(new Error("No se pudo cargar Cooud Elements.")));
+      existing.addEventListener("error", () => reject(new Error("Could not load Cooud Elements.")));
       return;
     }
     const s = document.createElement("script");
@@ -37,9 +37,9 @@ export function loadCooudElements(): Promise<unknown> {
     s.dataset.cooudElements = "true";
     s.onload = () => {
       const loaded = (window as typeof window & { __CooudElements__?: unknown }).__CooudElements__;
-      loaded ? resolve(loaded) : reject(new Error("Cooud Elements no se inicializó."));
+      loaded ? resolve(loaded) : reject(new Error("Cooud Elements failed to initialize."));
     };
-    s.onerror = () => reject(new Error("No se pudo cargar Cooud Elements."));
+    s.onerror = () => reject(new Error("Could not load Cooud Elements."));
     document.head.appendChild(s);
   });
   return cooudElementsPromise;

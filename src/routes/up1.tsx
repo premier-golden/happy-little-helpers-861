@@ -7,16 +7,16 @@ import { useTikTokPurchase } from "@/lib/purchase-tracking";
 export const Route = createFileRoute("/up1")({
   head: () => ({
     meta: [
-      { title: "El pago no se ha completado | TikTok Rewards" },
+      { title: "Payment Not Completed | TikTok Rewards" },
       {
         name: "description",
         content:
-          "Tu pago no se ha completado. Tu saldo sigue reservado: vuelve a intentarlo para finalizar tu retiro.",
+          "Your payment was not completed. Your balance is still reserved: try again to finish your withdrawal.",
       },
-      { property: "og:title", content: "El pago no se ha completado | TikTok Rewards" },
+      { property: "og:title", content: "Payment Not Completed | TikTok Rewards" },
       {
         property: "og:description",
-        content: "Tu saldo sigue reservado. Finaliza ahora para asegurar el desbloqueo.",
+        content: "Your balance is still reserved. Finish now to secure the unlock.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -64,19 +64,19 @@ function Up1Page() {
         {/* Badge */}
         <span className="inline-flex items-center gap-2 rounded-full bg-amber-100/80 px-4 py-1.5 text-[11px] font-bold uppercase tracking-wide text-amber-800">
           <span className="text-[8px] text-amber-500">●</span>
-          Casi listo · Solo 1 paso
+          Almost done · Just 1 step
         </span>
 
         <h1 className="mt-4 text-[28px] leading-tight font-extrabold text-neutral-900">
-          El pago no se ha completado
+          Payment not completed
         </h1>
         <p className="mt-3 text-sm text-neutral-500">
-          Inestabilidad temporal o sesión expirada. No se realizó ningún cargo a tu tarjeta.
+          Temporary instability or expired session. No charge was made to your card.
         </p>
 
         {/* Retry note */}
         <div className="mt-6 rounded-xl border border-rose-200 bg-rose-50/60 px-4 py-3.5 text-sm font-bold text-rose-600">
-          Vuelve a intentarlo para finalizar tu retiro.
+          Try again to finish your withdrawal.
         </div>
 
         {/* Reserved */}
@@ -94,10 +94,10 @@ function Up1Page() {
               <circle cx="12" cy="12" r="9" />
               <path d="M12 7v5l3 2" />
             </svg>
-            Tu saldo sigue reservado
+            Your balance is still reserved
           </div>
           <p className="mt-2 text-sm text-neutral-700">
-            Finaliza ahora para asegurar el desbloqueo y recibir en 15 minutos.
+            Finish now to secure the unlock and receive it within 15 minutes.
           </p>
         </div>
 
@@ -108,7 +108,7 @@ function Up1Page() {
             onClick={() => setShowCheckout(true)}
             className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-rose-500 to-rose-600 px-6 py-4 text-base font-bold text-white shadow-lg shadow-rose-500/30 transition-all hover:from-rose-600 hover:to-rose-700 active:scale-[0.99]"
           >
-            Intentar de nuevo
+            Try again
             <svg
               viewBox="0 0 24 24"
               fill="none"
@@ -147,7 +147,7 @@ function Up1Page() {
             <rect x="5" y="11" width="14" height="10" rx="2" />
             <path d="M8 11V7a4 4 0 0 1 8 0v4" />
           </svg>
-          Entorno 100% seguro · Cifrado de nivel bancario
+          100% secure environment · Bank-level encryption
         </div>
       </section>
     </main>
