@@ -43,7 +43,7 @@ export function useTikTokPurchase({ productId }: PurchaseOptions) {
             quantity: 1,
             price: value,
             value,
-            currency: "EUR",
+            currency: "USD",
           },
           checkoutSessionId,
         );
