@@ -1,0 +1,20 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1788526825500,
+      "tag": "0000_community_write_policies",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1788527738420,
+      "tag": "0001_revoke_anon_execute_secdef_functions",
+      "breakpoints": true
+    }
+  ]
+}

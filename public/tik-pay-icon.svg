@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="Tik Pay">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#191a1f"/>
+      <stop offset="1" stop-color="#08090b"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff1a8"/>
+      <stop offset=".26" stop-color="#ffd54d"/>
+      <stop offset=".62" stop-color="#f2a900"/>
+      <stop offset="1" stop-color="#b96f00"/>
+    </linearGradient>
+    <linearGradient id="gold2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff7c8"/>
+      <stop offset=".35" stop-color="#ffcf3d"/>
+      <stop offset="1" stop-color="#dc8a00"/>
+    </linearGradient>
+    <filter id="shadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#000" flood-opacity=".45"/>
+    </filter>
+  </defs>
+
+  <rect x="8" y="8" width="240" height="240" rx="54" fill="url(#bg)"/>
+
+  <!-- back coin -->
+  <g filter="url(#shadow)">
+    <circle cx="183" cy="77" r="35" fill="url(#gold)" stroke="#ffe882" stroke-width="4"/>
+    <circle cx="183" cy="77" r="27" fill="none" stroke="#b96f00" stroke-width="3" opacity=".75"/>
+    <path d="M183 58l5.4 11 12.1 1.8-8.8 8.6 2.1 12.1-10.8-5.7-10.8 5.7 2.1-12.1-8.8-8.6 12.1-1.8z" fill="#ffd84a"/>
+  </g>
+
+  <!-- coin stack -->
+  <g filter="url(#shadow)">
+    <ellipse cx="68" cy="171" rx="37" ry="13" fill="#9a5b00"/>
+    <rect x="31" y="150" width="74" height="39" rx="12" fill="url(#gold)"/>
+    <ellipse cx="68" cy="150" rx="37" ry="13" fill="#ffcc35" stroke="#ffe98b" stroke-width="3"/>
+    <ellipse cx="68" cy="171" rx="37" ry="13" fill="none" stroke="#c77b00" stroke-width="3"/>
+    <path d="M38 159h60M38 170h60M38 181h60" stroke="#d18800" stroke-width="3" opacity=".55"/>
+  </g>
+
+  <!-- central play badge -->
+  <g filter="url(#shadow)">
+    <circle cx="126" cy="127" r="67" fill="#111216" stroke="url(#gold2)" stroke-width="10"/>
+    <circle cx="126" cy="127" r="56" fill="#18191d" stroke="#5a3a00" stroke-width="2"/>
+    <path d="M109 94c0-7 7.6-11.4 13.6-7.8l47 28.8c5.9 3.6 5.9 12.2 0 15.8l-47 28.8c-6 3.6-13.6-.7-13.6-7.8z"
+      fill="url(#gold2)" stroke="#fff0a6" stroke-width="3"/>
+  </g>
+
+  <!-- front coin -->
+  <g filter="url(#shadow)">
+    <circle cx="185" cy="180" r="39" fill="url(#gold)" stroke="#fff0a6" stroke-width="4"/>
+    <circle cx="185" cy="180" r="30" fill="none" stroke="#bd7500" stroke-width="3" opacity=".75"/>
+    <path d="M185 158l6.1 12.4 13.7 2-9.9 9.6 2.3 13.6-12.2-6.4-12.2 6.4 2.3-13.6-9.9-9.6 13.7-2z" fill="#ffd84a"/>
+  </g>
+</svg>
