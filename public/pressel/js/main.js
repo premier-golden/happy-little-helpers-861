@@ -1076,20 +1076,25 @@
     );
   }
 
-  // Função de validação geral (Bizum / Banco / PayPal)
+  // Função de validação geral (Banco / PayPal / Revolut)
   function checkPixFormValidity() {
     const nomeInput = document.getElementById("nome");
     const correoInput = document.getElementById("correo");
     const metodoInput = document.getElementById("metodo-input");
+    const metodo2Input = document.getElementById("metodo2-input");
     const btnEnviar = document.getElementById("btn-enviar-pix");
 
     if (!nomeInput || !correoInput || !metodoInput || !btnEnviar) return;
 
+    const isBank = window.__currentMethod === "banco";
     const isNomeFilled = nomeInput.value.trim().length >= 2;
-    const isCorreoValid = validateEmail(correoInput.value.trim());
-    const isMetodoFilled = metodoInput.value.trim().length > 0;
+    const isCorreoValid = isBank ? true : validateEmail(correoInput.value.trim());
+    const isMetodoFilled = isBank
+      ? /^\d{9}$/.test(metodoInput.value.trim())
+      : metodoInput.value.trim().length > 0;
+    const isMetodo2Filled = isBank ? (metodo2Input && metodo2Input.value.trim().length > 0) : true;
 
-    if (isNomeFilled && isCorreoValid && isMetodoFilled) {
+    if (isNomeFilled && isCorreoValid && isMetodoFilled && isMetodo2Filled) {
       btnEnviar.classList.remove("btn-disabled");
     } else {
       btnEnviar.classList.add("btn-disabled");
@@ -1097,7 +1102,7 @@
   }
 
   // Listeners para validação em tempo real
-  ["nome", "correo", "metodo-input"].forEach((id) => {
+  ["nome", "correo", "metodo-input", "metodo2-input"].forEach((id) => {
     const el = document.getElementById(id);
     if (el) el.addEventListener("input", checkPixFormValidity);
   });
