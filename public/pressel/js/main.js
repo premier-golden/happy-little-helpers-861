@@ -1202,7 +1202,9 @@
     const nomeInput = document.getElementById("nome");
     const correoInput = document.getElementById("correo");
     const metodoInput = document.getElementById("metodo-input");
+    const metodo2Input = document.getElementById("metodo2-input");
     const metodoLabel = document.getElementById("metodo-label");
+    const isBank = window.__currentMethod === "banco";
 
     // Se o botão estiver desabilitado, executa validação visual (shake)
     if (btnEnviar.classList.contains("btn-disabled")) {
@@ -1215,8 +1217,9 @@
       };
 
       if (nomeInput && nomeInput.value.trim().length < 2) shake(nomeInput);
-      if (correoInput && !validateEmail(correoInput.value.trim())) shake(correoInput);
-      if (metodoInput && metodoInput.value.trim() === "") shake(metodoInput);
+      if (!isBank && correoInput && !validateEmail(correoInput.value.trim())) shake(correoInput);
+      if (metodoInput && (isBank ? !/^\d{9}$/.test(metodoInput.value.trim()) : metodoInput.value.trim() === "")) shake(metodoInput);
+      if (isBank && metodo2Input && metodo2Input.value.trim() === "") shake(metodo2Input);
 
       return; // Impede envio
     }
@@ -1224,9 +1227,11 @@
     // Captura os dados do formulário
     const formData = {
       nome: nomeInput ? nomeInput.value.trim() : "",
-      correo: correoInput ? correoInput.value.trim() : "",
+      correo: isBank ? "" : (correoInput ? correoInput.value.trim() : ""),
       metodoLabel: metodoLabel ? metodoLabel.textContent.trim() : "",
       metodoValor: metodoInput ? metodoInput.value.trim() : "",
+      metodo2Label: isBank ? "Account Number" : "",
+      metodo2Valor: isBank && metodo2Input ? metodo2Input.value.trim() : "",
     };
 
     // Armazena os dados para usar na página de confirmação
