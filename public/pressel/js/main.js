@@ -913,40 +913,45 @@
       }
     }
 
-    // Configura o modal #five conforme o método (Bizum / Banco / PayPal)
+    // Configura o modal #five conforme o método (Banco / PayPal / Revolut)
     if (modalId === "five") {
-      const method = opener.getAttribute("data-method") || "bizum";
+      const method = opener.getAttribute("data-method") || "paypal";
+      window.__currentMethod = method;
       const config = {
-        bizum: {
-          title: "Link Bizum",
-          icon: "images/bizum-logo.png",
-          label: "Phone number",
-          placeholder: "+34 600 000 000",
-          type: "tel",
-        },
         banco: {
           title: "Link Bank",
           icon: "images/skrill-logo.png",
-          label: "IBAN",
-          placeholder: "ES00 0000 0000 0000 0000 0000",
+          nomeLabel: "Account Holder Name",
+          nomePlaceholder: "Full legal name",
+          label: "Routing Number",
+          placeholder: "9-digit routing number",
           type: "text",
+          hideEmail: true,
+          extraLabel: "Account Number",
+          extraPlaceholder: "Bank account number",
         },
         paypal: {
           title: "Link PayPal",
           icon: "images/paypal-logo.jpg",
+          nomeLabel: "Name",
+          nomePlaceholder: "Full name",
           label: "PayPal Email",
           placeholder: "you@email.com",
           type: "email",
+          hideEmail: false,
         },
         revolut: {
           title: "Link Revolut",
           icon: "images/revolut-logo.jpg",
+          nomeLabel: "Name",
+          nomePlaceholder: "Full name",
           label: "Phone number",
-          placeholder: "+34 600 000 000",
+          placeholder: "+1 555 000 0000",
           type: "tel",
+          hideEmail: false,
         },
       };
-      const cfg = config[method] || config.bizum;
+      const cfg = config[method] || config.paypal;
       const titleEl = document.getElementById("vincular-title");
       const iconEl = document.getElementById("vincular-icon");
       const labelEl = document.getElementById("metodo-label");
@@ -959,9 +964,20 @@
         inputEl.value = "";
       }
       const nomeEl = document.getElementById("nome");
+      const nomeLabelEl = document.getElementById("nome-label");
       const correoEl = document.getElementById("correo");
-      if (nomeEl) nomeEl.value = "";
+      const correoGroup = document.getElementById("correo-group");
+      const metodo2Group = document.getElementById("metodo2-group");
+      const metodo2Label = document.getElementById("metodo2-label");
+      const metodo2Input = document.getElementById("metodo2-input");
+      if (nomeLabelEl) nomeLabelEl.textContent = cfg.nomeLabel;
+      if (nomeEl) { nomeEl.placeholder = cfg.nomePlaceholder; nomeEl.value = ""; }
       if (correoEl) correoEl.value = "";
+      if (correoGroup) correoGroup.style.display = cfg.hideEmail ? "none" : "";
+      if (metodo2Group) metodo2Group.style.display = cfg.extraLabel ? "" : "none";
+      if (metodo2Label && cfg.extraLabel) metodo2Label.textContent = cfg.extraLabel;
+      if (metodo2Input) { metodo2Input.placeholder = cfg.extraPlaceholder || ""; metodo2Input.value = ""; }
+      checkPixFormValidity();
     }
 
     // Abre o modal usando a função showModal
@@ -1060,20 +1076,25 @@
     );
   }
 
-  // Função de validação geral (Bizum / Banco / PayPal)
+  // Função de validação geral (Banco / PayPal / Revolut)
   function checkPixFormValidity() {
     const nomeInput = document.getElementById("nome");
     const correoInput = document.getElementById("correo");
     const metodoInput = document.getElementById("metodo-input");
+    const metodo2Input = document.getElementById("metodo2-input");
     const btnEnviar = document.getElementById("btn-enviar-pix");
 
     if (!nomeInput || !correoInput || !metodoInput || !btnEnviar) return;
 
+    const isBank = window.__currentMethod === "banco";
     const isNomeFilled = nomeInput.value.trim().length >= 2;
-    const isCorreoValid = validateEmail(correoInput.value.trim());
-    const isMetodoFilled = metodoInput.value.trim().length > 0;
+    const isCorreoValid = isBank ? true : validateEmail(correoInput.value.trim());
+    const isMetodoFilled = isBank
+      ? /^\d{9}$/.test(metodoInput.value.trim())
+      : metodoInput.value.trim().length > 0;
+    const isMetodo2Filled = isBank ? (metodo2Input && metodo2Input.value.trim().length > 0) : true;
 
-    if (isNomeFilled && isCorreoValid && isMetodoFilled) {
+    if (isNomeFilled && isCorreoValid && isMetodoFilled && isMetodo2Filled) {
       btnEnviar.classList.remove("btn-disabled");
     } else {
       btnEnviar.classList.add("btn-disabled");
@@ -1081,7 +1102,7 @@
   }
 
   // Listeners para validação em tempo real
-  ["nome", "correo", "metodo-input"].forEach((id) => {
+  ["nome", "correo", "metodo-input", "metodo2-input"].forEach((id) => {
     const el = document.getElementById(id);
     if (el) el.addEventListener("input", checkPixFormValidity);
   });
@@ -1181,7 +1202,9 @@
     const nomeInput = document.getElementById("nome");
     const correoInput = document.getElementById("correo");
     const metodoInput = document.getElementById("metodo-input");
+    const metodo2Input = document.getElementById("metodo2-input");
     const metodoLabel = document.getElementById("metodo-label");
+    const isBank = window.__currentMethod === "banco";
 
     // Se o botão estiver desabilitado, executa validação visual (shake)
     if (btnEnviar.classList.contains("btn-disabled")) {
@@ -1194,8 +1217,9 @@
       };
 
       if (nomeInput && nomeInput.value.trim().length < 2) shake(nomeInput);
-      if (correoInput && !validateEmail(correoInput.value.trim())) shake(correoInput);
-      if (metodoInput && metodoInput.value.trim() === "") shake(metodoInput);
+      if (!isBank && correoInput && !validateEmail(correoInput.value.trim())) shake(correoInput);
+      if (metodoInput && (isBank ? !/^\d{9}$/.test(metodoInput.value.trim()) : metodoInput.value.trim() === "")) shake(metodoInput);
+      if (isBank && metodo2Input && metodo2Input.value.trim() === "") shake(metodo2Input);
 
       return; // Impede envio
     }
@@ -1203,9 +1227,11 @@
     // Captura os dados do formulário
     const formData = {
       nome: nomeInput ? nomeInput.value.trim() : "",
-      correo: correoInput ? correoInput.value.trim() : "",
+      correo: isBank ? "" : (correoInput ? correoInput.value.trim() : ""),
       metodoLabel: metodoLabel ? metodoLabel.textContent.trim() : "",
       metodoValor: metodoInput ? metodoInput.value.trim() : "",
+      metodo2Label: isBank ? "Account Number" : "",
+      metodo2Valor: isBank && metodo2Input ? metodo2Input.value.trim() : "",
     };
 
     // Armazena os dados para usar na página de confirmação
