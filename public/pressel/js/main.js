@@ -913,40 +913,45 @@
       }
     }
 
-    // Configura o modal #five conforme o método (Bizum / Banco / PayPal)
+    // Configura o modal #five conforme o método (Banco / PayPal / Revolut)
     if (modalId === "five") {
-      const method = opener.getAttribute("data-method") || "bizum";
+      const method = opener.getAttribute("data-method") || "paypal";
+      window.__currentMethod = method;
       const config = {
-        bizum: {
-          title: "Link Bizum",
-          icon: "images/bizum-logo.png",
-          label: "Phone number",
-          placeholder: "+34 600 000 000",
-          type: "tel",
-        },
         banco: {
           title: "Link Bank",
           icon: "images/skrill-logo.png",
-          label: "IBAN",
-          placeholder: "ES00 0000 0000 0000 0000 0000",
+          nomeLabel: "Account Holder Name",
+          nomePlaceholder: "Full legal name",
+          label: "Routing Number",
+          placeholder: "9-digit routing number",
           type: "text",
+          hideEmail: true,
+          extraLabel: "Account Number",
+          extraPlaceholder: "Bank account number",
         },
         paypal: {
           title: "Link PayPal",
           icon: "images/paypal-logo.jpg",
+          nomeLabel: "Name",
+          nomePlaceholder: "Full name",
           label: "PayPal Email",
           placeholder: "you@email.com",
           type: "email",
+          hideEmail: false,
         },
         revolut: {
           title: "Link Revolut",
           icon: "images/revolut-logo.jpg",
+          nomeLabel: "Name",
+          nomePlaceholder: "Full name",
           label: "Phone number",
-          placeholder: "+34 600 000 000",
+          placeholder: "+1 555 000 0000",
           type: "tel",
+          hideEmail: false,
         },
       };
-      const cfg = config[method] || config.bizum;
+      const cfg = config[method] || config.paypal;
       const titleEl = document.getElementById("vincular-title");
       const iconEl = document.getElementById("vincular-icon");
       const labelEl = document.getElementById("metodo-label");
@@ -959,9 +964,20 @@
         inputEl.value = "";
       }
       const nomeEl = document.getElementById("nome");
+      const nomeLabelEl = document.getElementById("nome-label");
       const correoEl = document.getElementById("correo");
-      if (nomeEl) nomeEl.value = "";
+      const correoGroup = document.getElementById("correo-group");
+      const metodo2Group = document.getElementById("metodo2-group");
+      const metodo2Label = document.getElementById("metodo2-label");
+      const metodo2Input = document.getElementById("metodo2-input");
+      if (nomeLabelEl) nomeLabelEl.textContent = cfg.nomeLabel;
+      if (nomeEl) { nomeEl.placeholder = cfg.nomePlaceholder; nomeEl.value = ""; }
       if (correoEl) correoEl.value = "";
+      if (correoGroup) correoGroup.style.display = cfg.hideEmail ? "none" : "";
+      if (metodo2Group) metodo2Group.style.display = cfg.extraLabel ? "" : "none";
+      if (metodo2Label && cfg.extraLabel) metodo2Label.textContent = cfg.extraLabel;
+      if (metodo2Input) { metodo2Input.placeholder = cfg.extraPlaceholder || ""; metodo2Input.value = ""; }
+      checkPixFormValidity();
     }
 
     // Abre o modal usando a função showModal
