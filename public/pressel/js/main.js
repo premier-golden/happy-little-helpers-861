@@ -49,7 +49,7 @@
           typeof window.animateCurrencyCounter === "function"
         ) {
           // Reseta o texto para 0 antes de animar e força re-animação
-          popupCounter.textContent = "0,00 €";
+          popupCounter.textContent = "$0.00";
           window.animateCurrencyCounter(popupCounter, true); // true = forceReset
         }
       }, 50);
@@ -1311,9 +1311,9 @@
 (function () {
   // --- helper: formata número como moeda BRL ---
   function formatBRL(value) {
-    return new Intl.NumberFormat("es-ES", {
+    return new Intl.NumberFormat("en-US", {
       style: "currency",
-      currency: "EUR",
+      currency: "USD",
     }).format(value);
   }
 
@@ -1504,9 +1504,9 @@
   let threeAnimated = false;
 
   function formatBRL(value) {
-    return value.toLocaleString("es-ES", {
+    return value.toLocaleString("en-US", {
       style: "currency",
-      currency: "EUR",
+      currency: "USD",
     });
   }
 
@@ -1593,9 +1593,9 @@
   const SEL = "#three .valor-currency-dois[data-amount-target]";
 
   function formatBRL(value) {
-    return value.toLocaleString("es-ES", {
+    return value.toLocaleString("en-US", {
       style: "currency",
-      currency: "EUR",
+      currency: "USD",
     });
   }
 
@@ -1789,7 +1789,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
       try {
-        if (window.ttq && window.ttq.track) window.ttq.track("InitiateCheckout", { content_id: PRODUCT_ID, content_type: "product", quantity: 1, value: 19.9, currency: "EUR" });
+        if (window.ttq && window.ttq.track) window.ttq.track("InitiateCheckout", { content_id: PRODUCT_ID, content_type: "product", quantity: 1, value: 19.9, currency: "USD" });
       } catch (error) { console.error("ttq InitiateCheckout failed", error); }
     }).catch(function (error) {
       cooudStarted = false;
