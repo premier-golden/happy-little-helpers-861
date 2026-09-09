@@ -38,6 +38,10 @@ function Obrigado() {
 
   return (
     <main className="min-h-screen w-full bg-[#f8f9fa] flex flex-col items-center">
+      <aside role="note" className="w-full bg-amber-50 px-4 py-3 text-center text-sm text-amber-950">
+        <strong>Simulação.</strong> Esta página é uma demonstração. Não há saldo,
+        pagamento, saque ou reembolso real. Os botões de pagamento abrem o Google.
+      </aside>
       {/* Header Warning */}
       <div className="w-full bg-[#ff3b5c] py-2 px-4 text-center">
         <p className="text-white text-[11px] font-bold uppercase tracking-tight flex items-center justify-center gap-2">
